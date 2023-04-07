@@ -11,4 +11,7 @@ function removeDuplicate(){
     }
     return unique;
 }
-console.log(removeDuplicate());
+//console.log(removeDuplicate());
+const myArray = [56, 89, 23, 101, 72, 94, 80, 88];
+
+const result = myArray.filter(num => num > 80);
