@@ -1,10 +1,12 @@
 //load meal
 const loadMeal = (searchText) => {
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
     fetch(url)
         .then(res => res.json())
         .then(data => displayMeal(data.meals));
 }
+
+
 // create dynamic element
 const displayMeal = (meals) => {
     const mealWrap = document.getElementById('meal-wrap');
@@ -31,14 +33,34 @@ const searchMeal = () => {
     const searchText = document.getElementById('serachInput').value;
     loadMeal(searchText);
 }
+// without async funciton
+
 // load meal details in modal
-const loadMealDetails = idMeal => {
+// const loadMealDetails = idMeal => {
+//     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`
+//     console.log(url);
+//     fetch(url)
+//     .then(res => res.json())
+//     .then(data => displayMealDetails(data.meals[0]))
+// }
+
+
+//using asynce function
+const loadMealDetails = async (idMeal) => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`
-    console.log(url);
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displayMealDetails(data.meals[0]))
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        displayMealDetails(data.meals[0])
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
 }
+
+
 
 //display details in modal
 const displayMealDetails = (meal) => {
@@ -52,3 +74,5 @@ const displayMealDetails = (meal) => {
 
 
 loadMeal('fish');
+
+
